@@ -1,7 +1,4 @@
 # Search Databricks Notebooks within a Workspace
-
-This is a Databricks' Notebook itself.
-
 The Databricks' archive file (.DBC) is provided for importing directly into your workspace.
 
 Two options:
