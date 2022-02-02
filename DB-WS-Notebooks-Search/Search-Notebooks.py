@@ -19,6 +19,6 @@ if len(bearerToken.strip()) == 0:
 
 search_term = dbutils.widgets.get("search_term")
 if bool(search_term and not search_term.isspace()):
-  searchNotebooks('/', search_term)
+  searchNotebooks('/', search_term, bearerToken)
 else:
   print('Nothing to search. Please Enter a term!')

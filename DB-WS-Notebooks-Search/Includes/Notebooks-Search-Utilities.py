@@ -17,7 +17,6 @@ def searchNotebookContent(url, path, bearerToken, searchTerm):
 
 exportUri = '/api/2.0/workspace/export'
 listUri = '/api/2.0/workspace/list'
-headers = {"Authorization": "Bearer " + bearerToken }
 
 # COMMAND ----------
 
@@ -25,7 +24,8 @@ import requests
 import json
 from ast import literal_eval
 
-def searchNotebooks(relativePath, searchTerm):
+def searchNotebooks(relativePath, searchTerm, bearerToken):
+ headers = {"Authorization": "Bearer " + bearerToken }
  data_path = '{{"path": "{0}"}}'.format(relativePath)
  url = f'{instanceName}{listUri}'
  response = requests.get(url, headers=headers, data=data_path)
@@ -37,7 +37,7 @@ def searchNotebooks(relativePath, searchTerm):
     data = literal_eval(json.dumps(value))
     if data['object_type'] == 'DIRECTORY':
      # Iterate through all folders.
-     searchNotebooks(data['path'], searchTerm)
+     searchNotebooks(data['path'], searchTerm, bearerToken)
     elif data['object_type'] == 'NOTEBOOK':
       if 'DB-WS-Notebooks-Search' not in data['path'] and searchNotebookContent(f'{instanceName}{exportUri}', data['path'], bearerToken, searchTerm) > -1:
         print(data['path'])
